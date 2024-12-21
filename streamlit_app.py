@@ -73,8 +73,8 @@ if st.button("Hitung dan Tampilkan Grafik"):
         recursive_sums.append(recursive_sum)
 
         # Update grafik
-        ax.plot(n_values[:len(iterative_times)], iterative_times, label="Iteratif", color="b", linestyle="-", linewidth=2, marker='o')
-        ax.plot(n_values[:len(recursive_times)], recursive_times, label="Rekursif", color="p", linestyle="-", linewidth=2, marker='o')
+        ax.plot(n_values[:len(iterative_times)], iterative_times, label="Iteratif", color="c", linestyle="-", linewidth=2, marker='o')
+        ax.plot(n_values[:len(recursive_times)], recursive_times, label="Rekursif", color="m", linestyle="-", linewidth=2, marker='o')
 
         # Menampilkan grafik sementara di Streamlit
         plot_placeholder.pyplot(fig)
