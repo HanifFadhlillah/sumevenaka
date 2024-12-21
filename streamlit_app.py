@@ -3,19 +3,19 @@ import time
 import matplotlib.pyplot as plt
 import sys
 
-#tingkatkan batas rekursi
+# tingkatkan batas rekursi
 sys.setrecursionlimit(100000000)
 
-# Fungsi iteratif untuk menjumlahkan bilangan genap dari 1 hingga n
+# Fungsi iteratif untuk menjumlahkan bilangan genap dari 0 hingga n
 def sum_even_numbers_iterative(n):
     total = 0
-    for i in range(2, n + 1, 2):  
+    for i in range(0, n + 1, 2):  
         total += i
     return total
 
-#fungsi rekursif dengan teknik Tail Recursion
+# fungsi rekursif dengan teknik Tail Recursion
 def sum_even_numbers_recursive_with_tail(n, acc = 0):
-    if n < 2:  # Basis kasus, jika n lebih kecil dari 2, kembalikan hasil akumulator
+    if n < 0:  # Basis kasus, jika n lebih kecil dari 0, kembalikan hasil akumulator
         return acc
     if n % 2 == 0:  # Jika n adalah bilangan genap
         return sum_even_numbers_recursive_with_tail(n - 2, acc + n)
@@ -30,7 +30,7 @@ def sum_even_recursive(n):
 st.title("Perbandingan Waktu Eksekusi Algoritma Iteratif dan Rekursif")
 st.markdown("""
 Website ini membandingkan **waktu eksekusi** algoritma iteratif dan rekursif untuk menghitung 
-jumlah bilangan genap dari 2 hingga \( n \), di berbagai nilai \( n \).
+jumlah bilangan genap dari 0 hingga \( n \), di berbagai nilai \( n \).
 """)
 
 # Input dari user
@@ -92,6 +92,6 @@ if st.button("Hitung dan Tampilkan Grafik"):
     # Kesimpulan
     st.write("### Kesimpulan")
     st.write("Grafik di atas menunjukkan perbandingan waktu eksekusi untuk berbagai nilai \( n \):")
-    st.write("- Garis **biru** mewakili **algoritma iteratif**.")
-    st.write("- Garis **merah** mewakili **algoritma rekursif**.")
+    st.write("- Garis **cyan** mewakili **algoritma iteratif**.")
+    st.write("- Garis **magenta** mewakili **algoritma rekursif**.")
     st.write("Perhatikan bahwa untuk nilai \( n \) besar, algoritma rekursif bisa memakan waktu lebih lama karena overhead pemanggilan fungsi rekursif.")
