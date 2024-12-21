@@ -1,6 +1,6 @@
 import streamlit as st
 import time
-import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
 
 # Fungsi iteratif untuk menjumlahkan bilangan genap dari 1 hingga n
 def sum_even_numbers_iterative(n):
@@ -9,14 +9,20 @@ def sum_even_numbers_iterative(n):
         total += i
     return total
 
-# Fungsi rekursif dengan teknik Tail Recursion
-def sum_even_numbers_tail_recursive(n, accumulator=0):
-    if n < 2:  # Basis kasus, jika n lebih kecil dari 2, kembalikan hasil akumulator
-        return accumulator
-    if n % 2 == 0:  # Jika n adalah bilangan genap
-        return sum_even_numbers_tail_recursive(n - 2, accumulator + n)
-    else:  # Jika n adalah bilangan ganjil, lewati ke bilangan genap sebelumnya
-        return sum_even_numbers_tail_recursive(n - 1, accumulator)
+def sum_even_numbers_recursive_with_stack(n):
+    stack = [(n, 0)]  # Simulate a recursive call stack (n, accumulator)
+    result = 0
+
+    while stack:
+        current_n, accumulator = stack.pop()
+        if current_n < 2:  # Basis kasus
+            result = accumulator
+        elif current_n % 2 == 0:  # Jika n adalah bilangan genap
+            stack.append((current_n - 2, accumulator + current_n))
+        else:  # Jika n adalah bilangan ganjil
+            stack.append((current_n - 1, accumulator))
+
+    return result
 
 # Streamlit app
 st.title("Perbandingan Algoritma Iteratif dan Rekursif")
@@ -25,33 +31,41 @@ Aplikasi ini membandingkan waktu eksekusi algoritma iteratif dan rekursif untuk 
 """)
 
 # Input untuk nilai n
-n = st.number_input("Masukkan nilai n (bilangan bulat positif):", min_value=1, value=10, step=1)
+n = st.number_input("Masukkan nilai n (bilangan bulat positif):", min_value=1, value=10, step=1, format="%d")
 
 if st.button("Hitung"):
-    # Waktu eksekusi algoritma iteratif
-    start_time_iterative = time.time()
-    result_iterative = sum_even_numbers_iterative(n)
-    time_iterative = time.time() - start_time_iterative
+    # Mengumpulkan data untuk berbagai nilai n
+    n_values = list(range(2, n + 1, 2))  # Hanya bilangan genap
+    iterative_times = []
+    recursive_times = []
 
-    # Waktu eksekusi algoritma rekursif
-    start_time_recursive = time.time()
-    result_recursive = sum_even_numbers_tail_recursive(n)
-    time_recursive = time.time() - start_time_recursive
+    for i in n_values:
+        # Waktu eksekusi algoritma iteratif
+        start_time_iterative = time.time()
+        sum_even_numbers_iterative(i)
+        iterative_times.append(time.time() - start_time_iterative)
 
-    # Menampilkan hasil
+        # Waktu eksekusi algoritma rekursif
+        start_time_recursive = time.time()
+        sum_even_numbers_recursive_with_stack(i)
+        recursive_times.append(time.time() - start_time_recursive)
+
+    # Menampilkan hasil akhir
     st.subheader("Hasil Perhitungan:")
-    st.write(f"**Hasil (Iteratif):** {result_iterative}")
-    st.write(f"**Hasil (Rekursif):** {result_recursive}")
-    st.write(f"**Waktu Eksekusi (Iteratif):** {time_iterative:.6f} detik")
-    st.write(f"**Waktu Eksekusi (Rekursif):** {time_recursive:.6f} detik")
+    st.write(f"**Hasil Akhir (Iteratif):** {sum_even_numbers_iterative(n)}")
+    st.write(f"**Hasil Akhir (Rekursif):** {sum_even_numbers_recursive_with_stack(n)}")
 
-    # Membuat grafik perbandingan
+    # Membuat grafik perbandingan dalam bentuk garis
     st.subheader("Grafik Perbandingan Waktu Eksekusi:")
-    algorithms = ["Iteratif", "Rekursif"]
-    times = [time_iterative, time_recursive]
-
-    fig, ax = plt.subplots()
-    ax.bar(algorithms, times, color=["blue", "green"])
+    fig = Figure()
+    ax = fig.add_subplot(1, 1, 1)
+    
+    ax.plot(n_values, iterative_times, label="Iteratif", marker="o", color="blue")
+    ax.plot(n_values, recursive_times, label="Rekursif", marker="o", color="green")
+    ax.set_xlabel("Nilai n")
     ax.set_ylabel("Waktu Eksekusi (detik)")
     ax.set_title("Perbandingan Waktu Eksekusi Algoritma")
+    ax.legend()
+
+    # Menampilkan grafik
     st.pyplot(fig)
