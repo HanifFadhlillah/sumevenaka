@@ -34,7 +34,7 @@ jumlah bilangan genap dari 0 hingga \( n \), di berbagai nilai \( n \).
 """)
 
 # Input dari user
-max_n = st.number_input("Masukkan nilai maksimum n:", min_value=10, value=10, step=10)
+max_n = st.number_input("📈Masukkan nilai maksimum n:", min_value=10, value=10, step=10)
 interval = st.number_input("Masukkan interval perhitungan:", min_value=10, value=50, step=10)
 
 # Tombol untuk memulai perhitungan
