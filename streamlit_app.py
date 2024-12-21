@@ -30,7 +30,7 @@ def sum_even_recursive(n):
 st.title("Perbandingan Waktu Eksekusi Algoritma Iteratif dan Rekursif")
 st.markdown("""
 Website ini membandingkan **waktu eksekusi** algoritma iteratif dan rekursif untuk menghitung 
-jumlah bilangan ganjil dari 1 hingga \( n \), di berbagai nilai \( n \).
+jumlah bilangan genap dari 2 hingga \( n \), di berbagai nilai \( n \).
 """)
 
 # Input dari user
@@ -46,7 +46,7 @@ if st.button("Hitung dan Tampilkan Grafik"):
     iterative_sums = []
     recursive_sums = []
 
-# Setup grafik
+    # Setup grafik
     fig, ax = plt.subplots(figsize=(8, 5))
     ax.set_title("Perbandingan Waktu Eksekusi Iteratif vs Rekursif")
     ax.set_xlabel("Nilai n")
@@ -65,21 +65,21 @@ if st.button("Hitung dan Tampilkan Grafik"):
         iterative_times.append(round(iterative_time, 6))  # Membulatkan waktu hingga 6 desimal
         iterative_sums.append(iterative_sum)
 
-# Rekursif
+        # Rekursif
         start_time = time.time()
         recursive_sum = sum_even_recursive(n)
         recursive_time = time.time() - start_time
         recursive_times.append(round(recursive_time, 6))  # Membulatkan waktu hingga 6 desimal
         recursive_sums.append(recursive_sum)
 
-# Update grafik
+        # Update grafik
         ax.plot(n_values[:len(iterative_times)], iterative_times, label="Iteratif", color="b", linestyle="-", linewidth=2, marker='o')
         ax.plot(n_values[:len(recursive_times)], recursive_times, label="Rekursif", color="r", linestyle="-", linewidth=2, marker='o')
 
- # Menampilkan grafik sementara di Streamlit
+        # Menampilkan grafik sementara di Streamlit
         plot_placeholder.pyplot(fig)
 
-# Menampilkan hasil akhir perhitungan SUM
+    # Menampilkan hasil akhir perhitungan SUM
     st.write(f"### Hasil Akhir")
     st.write(f"Iteratif SUM (n = {max_n}) = {iterative_sums[-1]}")
     st.write(f"Rekursif SUM (n = {max_n}) = {recursive_sums[-1]}")
