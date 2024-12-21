@@ -1,6 +1,6 @@
 import streamlit as st
 import time
-import matplotlib.pyplot as plt
+import matplotlib as plt
 
 # Fungsi iteratif untuk menjumlahkan bilangan genap dari 1 hingga n
 def sum_even_numbers_iterative(n):
