@@ -74,7 +74,7 @@ if st.button("Hitung dan Tampilkan Grafik"):
 
         # Update grafik
         ax.plot(n_values[:len(iterative_times)], iterative_times, label="Iteratif", color="b", linestyle="-", linewidth=2, marker='o')
-        ax.plot(n_values[:len(recursive_times)], recursive_times, label="Rekursif", color="r", linestyle="-", linewidth=2, marker='o')
+        ax.plot(n_values[:len(recursive_times)], recursive_times, label="Rekursif", color="p", linestyle="-", linewidth=2, marker='o')
 
         # Menampilkan grafik sementara di Streamlit
         plot_placeholder.pyplot(fig)
